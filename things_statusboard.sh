@@ -1,0 +1,1 @@
+osascript /Users/YOURNAME/YOURPATH/things_statusboard.scpt  > /Users/YOURNAME/Dropbox/Public/things_statusboard.csv
