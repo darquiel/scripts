@@ -21,6 +21,10 @@ Param(
 Clear-Host
 Push-Location $sourceDir
 
+move-item *.zip ~/Downloads/CmPrsd/Z
+move-item *.rar ~/Downloads/CmPrsd/R
+
+
 $filesMine = Get-ChildItem -Name
 foreach ( $file in $filesMine ) {
   $file | Where { $_ -match '(?<=_by_)(.*)(?=-)' } | foreach {
