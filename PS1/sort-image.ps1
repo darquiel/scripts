@@ -8,10 +8,10 @@
 .OUTPUTS
   N/A
 .NOTES
-  Version:        1.0
+  Version:        -- see the GIT repos for version history
+  Repos:          https://azriel.visualstudio.com/_git/scripts
   Author:         Mark Andrews
   Creation Date:  2/28/2017
-  Purpose/Change: Initial script development 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #>
 
 Param(
@@ -21,12 +21,6 @@ Param(
 
 Clear-Host
 Push-Location $sourceDir
-
-<# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
- Regex Notes
- get artist name between the tag "_by_" and "-"
- (?<=_by_)(.*)(?=-)
- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #>
 
 $filesMine = Get-ChildItem -Name
 foreach ( $file in $filesMine ) {
