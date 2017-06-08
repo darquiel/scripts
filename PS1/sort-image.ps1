@@ -2,9 +2,10 @@
 .DESCRIPTION
   This script helps with sorting downloaded files from DA (DeviantArt) based on the submiter.
 .INPUTS
-  Script takes an input folder (default is ~/Downloads); and then generate an output folder with a folder for every Artist.
+  Script takes an input folder <sourceDir -- default is ~/Downloads>
+  Script takes an output folder root <targetDirRoot -- default is ~/Downloads/DA.Art/Sorted>
 .OUTPUTS
-  N/A
+  Script generate an output folder with a folder for every Artist.
 .NOTES
   Version:        -- see the GIT repos for version history
   Repos:          https://azriel.visualstudio.com/_git/scripts
