@@ -1,8 +1,6 @@
 <# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 .DESCRIPTION
   This script helps with sorting downloaded files from DA (DeviantArt) based on the submiter.
-.PARAMETER <Parameter_Name>
-    <Brief description of parameter input required. Repeat this attribute if required>
 .INPUTS
   Script takes an input folder (default is ~/Downloads); and then generate an output folder with a folder for every Artist.
 .OUTPUTS
