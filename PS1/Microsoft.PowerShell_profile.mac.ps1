@@ -1,6 +1,6 @@
 #New-Item -Path alias:VSCode -value 'open -a "Visual Studio Code"'
 Set-Alias -name ls -value get-childitemcolor -option AllScope -Force
-Set-Alias -name vscode -value launch-visualstudiocode -option AllScope -Force
+Set-Alias -name vscode -value start-visualstudiocode -option AllScope -Force
 
 function Get-ChildItemColor {
 <#
@@ -33,27 +33,27 @@ function Get-ChildItemColor {
   #   '\.(txt|cfg|conf|ini|csv|log)$', $regex_opts)
 
   Invoke-Expression ("Get-ChildItem $args") |
-    %{
+    ForEach-Object{
       if ($_.Attributes -band [IO.FileAttributes]::Compressed) {
         #($_.GetType().Name -eq 'DirectoryInfo')
 		$Host.UI.RawUI.ForegroundColor = 'Red'
-        echo $_
+        Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
       } elseif ($_.Attributes -band [IO.FileAttributes]::ReparsePoint) {
         $Host.UI.RawUI.ForegroundColor = 'DarkBlue'
-        echo $_
+        Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
       }  elseif  ($_.Attributes -band [IO.FileAttributes]::Directory) {
         $Host.UI.RawUI.ForegroundColor = 'Blue'
-        echo $_
+        Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
       } elseif ($compressed.IsMatch($_.Name)) {
         $Host.UI.RawUI.ForegroundColor = 'Red'
-        echo $_
+        Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
 	  } elseif ($executable.IsMatch($_.Name)) {
         $Host.UI.RawUI.ForegroundColor = 'Green'
-        echo $_
+        Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
       #}
       #} elseif ($text_files.IsMatch($_.Name)) {
@@ -61,12 +61,12 @@ function Get-ChildItemColor {
       #  echo $_
       #  $Host.UI.RawUI.ForegroundColor = $fore
       } else {
-        echo $_
+        Write-output $_
       }
     }
 }
 
-function launch-visualstudiocode {
+function start-visualstudiocode {
 <# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 .DESCRIPTION
   Basic script to open VSCode with a particular file - to the GUI...
