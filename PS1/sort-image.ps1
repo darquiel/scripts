@@ -27,7 +27,7 @@ move-item *.rar ~/Downloads/CmPrsd/R
 
 $filesMine = Get-ChildItem -Name
 foreach ( $file in $filesMine ) {
-  $file | Where { $_ -match '(?<=_by_)(.*)(?=-)' } | foreach {
+  $file | Where-Object { $_ -match '(?<=_by_)(.*)(?=-)' } | foreach-object {
     $newPath = $targetDirRoot + $matches[0] + "/"
     If(!(test-path $newPath))
     {
