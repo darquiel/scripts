@@ -24,6 +24,9 @@ Push-Location $sourceDir
 move-item *.zip ~/Downloads/CmPrsd/Z
 move-item *.rar ~/Downloads/CmPrsd/R
 
+gci -file | Rename-Item -NewName { $_.Name -replace "-fullview", "a" }
+gci -file | Rename-Item -NewName { $_.Name -replace "_", "-" }
+gci -file | Rename-Item -NewName { $_.Name -replace "-by-", "_by_" }
 
 $filesMine = Get-ChildItem -Name
 foreach ( $file in $filesMine ) {
