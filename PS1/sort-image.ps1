@@ -15,22 +15,25 @@
 
 Param(
   [string]$sourceDir = "/Users/usd42142/Downloads/",
-  [string]$targetDirRoot = "/Users/usd42142/Downloads/DA.Art/Sorted/" 
+  [string]$targetCmPrsdDirRoot = "/Users/usd42142/OneDrive/Downloads/CmPrsd/", 
+  [string]$targetImageDirRoot = "/Users/usd42142/OneDrive/Downloads/DA.Art/Sorted/" 
 )
 
 Clear-Host
 Push-Location $sourceDir
 
 function MoveCompressedFiles {
-  move-item *.zip ~/Downloads/CmPrsd/Z
-  move-item *.rar ~/Downloads/CmPrsd/R
+  $zDir = $targetCmPrsdDirRoot + "Z/"
+  $rDir = $targetCmPrsdDirRoot + "R/"
+  move-item *.zip $zDir 
+  move-item *.rar $rDir
   Write-Host "MoveCompressedFiles :: Completed"
 }
 
 function CleanFilenames {
-  gci -file | Rename-Item -NewName { $_.Name -replace "-fullview", "a" }
-  gci -file | Rename-Item -NewName { $_.Name -replace "_", "-" }
-  gci -file | Rename-Item -NewName { $_.Name -replace "-by-", "_by_" }
+  Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "-fullview", "a" }
+  Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "_", "-" }
+  Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "-by-", "_by_" }
   write-host "CleanFilenames :: Completed"
 }
 
@@ -38,7 +41,7 @@ function SortImages {
   $filesMine = Get-ChildItem -Name
   foreach ( $file in $filesMine ) {
     $file | Where-Object { $_ -match '(?<=_by_)(.*)(?=-)' } | foreach-object {
-      $newPath = $targetDirRoot + $matches[0] + "/"
+      $newPath = $targetImageDirRoot + $matches[0] + "/"
       If(!(test-path $newPath))
       {
         $newPath
