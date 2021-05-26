@@ -16,7 +16,8 @@
 Param(
   [string]$sourceDir = "/Users/usd42142/Downloads/",
   [string]$targetCmPrsdDirRoot = "/Users/usd42142/OneDrive/Downloads/CmPrsd/", 
-  [string]$targetImageDirRoot = "/Users/usd42142/OneDrive/Downloads/DA.Art/Sorted/" 
+  [string]$targetImageDirRoot = "/Users/usd42142/OneDrive/Downloads/DA.Art/Sorted/",
+  [string]$targetExecDirRoot = "/Users/usd42142/OneDrive/Downloads/MRA/You-Exec/" 
 )
 
 Clear-Host
@@ -28,6 +29,14 @@ function MoveCompressedFiles {
   move-item *.zip $zDir 
   move-item *.rar $rDir
   Write-Host "MoveCompressedFiles :: Completed"
+}
+
+function MoveExecFiles {
+  $pptxDir = $targetExecDirRoot + "PPTX/"
+  $xlsDir = $targetExecDirRoot + "XLS/"
+  move-item *.pptx $pptxDir
+  move-item *.xls $xlsDir
+  Write-Host "MoveExecFiles :: Completed"
 }
 
 function CleanFilenames {
@@ -57,6 +66,7 @@ function SortImages {
 MoveCompressedFiles
 CleanFilenames
 SortImages
+MoveExecFiles
 
 Pop-Location
 # end
