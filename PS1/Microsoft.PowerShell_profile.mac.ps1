@@ -55,11 +55,6 @@ function Get-ChildItemColor {
         $Host.UI.RawUI.ForegroundColor = 'Green'
         Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
-      #}
-      #} elseif ($text_files.IsMatch($_.Name)) {
-      #  $Host.UI.RawUI.ForegroundColor = 'Cyan'
-      #  echo $_
-      #  $Host.UI.RawUI.ForegroundColor = $fore
       } else {
         Write-output $_
       }
