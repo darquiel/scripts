@@ -14,10 +14,10 @@
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #>
 
 Param(
-  [string]$sourceDir = "/Users/usd42142/Downloads/",
-  [string]$targetCmPrsdDirRoot = "/Users/usd42142/OneDrive/Downloads/CmPrsd/", 
-  [string]$targetImageDirRoot = "/Users/usd42142/OneDrive/Downloads/DA.Art/Sorted/",
-  [string]$targetExecDirRoot = "/Users/usd42142/OneDrive/Downloads/MRA/You-Exec/" 
+  [string]$sourceDir = "/Users/mja/Downloads/",
+  [string]$targetCmPrsdDirRoot = "/Users/mja/OneDrive/Downloads/CmPrsd/", 
+  [string]$targetImageDirRoot = "/Users/mja/OneDrive/Downloads/DA.Art/Sorted/",
+  [string]$targetExecDirRoot = "/Users/maj/OneDrive/Downloads/MRA/You-Exec/" 
 )
 
 Clear-Host
