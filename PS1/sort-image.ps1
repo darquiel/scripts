@@ -17,7 +17,7 @@ Param(
   [string]$sourceDir = "/Users/mja/Downloads/",
   [string]$targetCmPrsdDirRoot = "/Users/mja/OneDrive/Downloads/CmPrsd/", 
   [string]$targetImageDirRoot = "/Users/mja/OneDrive/Downloads/DA.Art/Sorted/",
-  [string]$targetExecDirRoot = "/Users/maj/OneDrive/Downloads/MRA/You-Exec/" 
+  [string]$targetExecDirRoot = "/Users/mja/OneDrive/Downloads/MRA/You-Exec/" 
 )
 
 Clear-Host
@@ -34,8 +34,10 @@ function MoveCompressedFiles {
 function MoveExecFiles {
   $pptxDir = $targetExecDirRoot + "PPTX/"
   $xlsDir = $targetExecDirRoot + "XLS/"
+  $keyDir = $targetExecDirRoot + "KEY/"
   move-item *.pptx $pptxDir
   move-item *.xls $xlsDir
+  move-item *.key $keyDir
   Write-Host "MoveExecFiles :: Completed"
 }
 
