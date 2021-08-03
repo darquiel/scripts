@@ -37,6 +37,7 @@ function MoveExecFiles {
   $keyDir = $targetExecDirRoot + "KEY/"
   move-item *.pptx $pptxDir
   move-item *.xls $xlsDir
+  move-item *.xlsx $xlsDir
   move-item *.key $keyDir
   Write-Host "MoveExecFiles :: Completed"
 }
