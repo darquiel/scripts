@@ -82,5 +82,5 @@ function start-visualstudiocode {
   # end
 }
 
-set-location "~/Documents/scripts/PS1"
+set-location "~/scripts/PS1"
 # clear
