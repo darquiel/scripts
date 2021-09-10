@@ -45,10 +45,13 @@ function XferFile {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " XferFile :: Started "
   Write-Host "-=-=-=-=-=-=-=-=-=-=-"
+  $tarTarget = $targetDirXfer + "4.0a.tar.gz"
+  
   $tarTarget
   $debugTaregtDir
-  scp ~/work/Cylentium/drop/4.0a.tar.gz build@khazadum:/home/build/drop
-  # $scp $tarTarget $debugTaregtDir
+  
+  #scp ~/work/Cylentium/drop/4.0a.tar.gz build@khazadum:/home/build/drop
+  scp $tarTarget $debugTaregtDir
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " XferFile :: Completed"
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
