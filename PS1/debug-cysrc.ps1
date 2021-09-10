@@ -22,6 +22,10 @@ Clear-Host
 Push-Location $sourceDir
 
 function PackageSrc {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " PackageSrc :: Started"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+
   $tarTarget = $targetDirXfer + "4.0a.tar.gz"
   $tarTarget
 
@@ -31,16 +35,23 @@ function PackageSrc {
 
   push-location $sourceDirRoot
   tar -czvf $tarTarget 4.0a
-  Write-Host "PackageSrc :: Completed"
   Pop-Location
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " PackageSrc :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
 function XferFile {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " XferFile :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-"
   $tarTarget
   $debugTaregtDir
   scp ~/work/Cylentium/drop/4.0a.tar.gz build@khazadum:/home/build/drop
   # $scp $tarTarget $debugTaregtDir
-  Write-Host "XferFile :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " XferFile :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
 <# function CleanFilenames {
