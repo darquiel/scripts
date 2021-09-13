@@ -68,7 +68,7 @@ function XtractFile {
   
   # check for exisitng file and remove it / then unzip the file
   ssh build@khazadum "if [ -f drop/4.0a.tar ]; then rm drop/4.0a.tar; fi"
-  ssh build@khazadum "gzip -f drop/4.0a.tar.gz"
+  ssh build@khazadum "gzip -d drop/4.0a.tar.gz"
 
   # check for exisitng file (working directory) and remove it / then untar it
   ssh build@khazadum "if [ -d 4.0a ]; then rm -rf 4.0a; fi"
