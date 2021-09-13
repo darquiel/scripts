@@ -45,46 +45,36 @@ function XferFile {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " XferFile :: Started "
   Write-Host "-=-=-=-=-=-=-=-=-=-=-"
-  $tarTarget = $targetDirXfer + "4.0a.tar.gz"
   
+  $tarTarget = $targetDirXfer + "4.0a.tar.gz"
   $tarTarget
   $debugTaregtDir
   
-  #scp ~/work/Cylentium/drop/4.0a.tar.gz build@khazadum:/home/build/drop
+  # check for exisitng file / and remove it
+  ssh build@khazadum "if [ -f drop/4.0a.tar.gz ]; then rm drop/4.0a.tar.gz; fi"
+
+  # now transfer file 
   scp $tarTarget $debugTaregtDir
+  
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " XferFile :: Completed"
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-<# function CleanFilenames {
-  Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "-fullview", "a" }
-  Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "_", "-" }
-  Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "-by-", "_by_" }
-  write-host "CleanFilenames :: Completed"
-} #>
+function XtractFile {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " XtractFile :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+ 
 
-<# function SortImages {
-  $filesMine = Get-ChildItem -Name
-  foreach ( $file in $filesMine ) {
-    $file | Where-Object { $_ -match '(?<=_by_)(.*)(?=-)' } | foreach-object {
-      $newPath = $targetImageDirRoot + $matches[0] + "/"
-      If(!(test-path $newPath))
-      {
-        $newPath
-        New-Item -type Directory -Force -Path $newPath
-      }
-      $fileName = "*" + $matches[0] + "*" 
-      move-item $fileName $newPath
-    }
-  }
-  write-host "SortImages :: Completed"
-} #>
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " XtractFile :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-"
+}
 
 PackageSrc
 XferFile
-#SortImages
-#MoveExecFiles
+XtractFile
 
 Pop-Location
 # end
