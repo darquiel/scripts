@@ -26,8 +26,10 @@ Push-Location $sourceDir
 function MoveCompressedFiles {
   $zDir = $targetCmPrsdDirRoot + "Z/"
   $rDir = $targetCmPrsdDirRoot + "R/"
+  $tgzDir = $targetCmPrsdDirRoot + "tar.gz"
   move-item *.zip $zDir 
   move-item *.rar $rDir
+  move-item *.tar.gz $tgzDir
   Write-Host "MoveCompressedFiles :: Completed"
 }
 
