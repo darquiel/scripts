@@ -17,6 +17,7 @@ Param(
   [string]$sourceDir = "/Users/mja/Downloads/",
   [string]$targetCmPrsdDirRoot = "/Users/mja/OneDrive/Downloads/CmPrsd/", 
   [string]$targetImageDirRoot = "/Users/mja/OneDrive/Downloads/DA.Art/Sorted/",
+  [string]$targetInstallersDirRoot = "/Users/mja/OneDrive/Downloads/Installer/",
   [string]$targetExecDirRoot = "/Users/mja/OneDrive/Downloads/MRA/You-Exec/" 
 )
 
@@ -24,36 +25,49 @@ Clear-Host
 Push-Location $sourceDir
 
 function MoveCompressedFiles {
+  Write-Host "-= MoveCompressedFiles    :: Started   =-"
   $zDir = $targetCmPrsdDirRoot + "Z/"
   $rDir = $targetCmPrsdDirRoot + "R/"
   $tgzDir = $targetCmPrsdDirRoot + "tar.gz/"
   $isoDir = $targetCmPrsdDirRoot + "ISO/"
-  move-item *.zip $zDir 
-  move-item *.rar $rDir
-  move-item *.tar.gz $tgzDir
-  move-item *.iso $isoDir
-  Write-Host "MoveCompressedFiles :: Completed"
+  Move-Item *.zip $zDir 
+  Move-Item *.rar $rDir
+  Move-Item *.tar.gz $tgzDir
+  Move-Item *.iso $isoDir
+  Write-Host "-= MoveCompressedFiles    :: Completed =-"
+}
+
+function MoveInstallers {
+  Write-Host "-= MoveInstallers         :: Started   =-"
+  $pkgDir = $targetInstallersDirRoot + "PKG/"
+  $dmgDir = $targetInstallersDirRoot + "DMG/"
+  Move-Item *.pkg $pkgDir
+  Move-Item *.dmg $dmgDir
+  Write-Host "-= MoveInstallers         :: Completed =-"
 }
 
 function MoveExecFiles {
+  Write-Host "-= MoveExecFiles          :: Started   =-"
   $pptxDir = $targetExecDirRoot + "PPTX/"
   $xlsDir = $targetExecDirRoot + "XLS/"
   $keyDir = $targetExecDirRoot + "KEY/"
-  move-item *.pptx $pptxDir
-  move-item *.xls $xlsDir
-  move-item *.xlsx $xlsDir
-  move-item *.key $keyDir
-  Write-Host "MoveExecFiles :: Completed"
+  Move-Item *.pptx $pptxDir
+  Move-Item *.xls $xlsDir
+  Move-Item *.xlsx $xlsDir
+  Move-Item *.key $keyDir
+  Write-Host "-= MoveExecFiles          :: Completed =-"
 }
 
 function CleanFilenames {
+  Write-Host "-= CleanFilenames         :: Started   =-"
   Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "-fullview", "a" }
   Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "_", "-" }
   Get-ChildItem -file | Rename-Item -NewName { $_.Name -replace "-by-", "_by_" }
-  write-host "CleanFilenames :: Completed"
+  Write-Host "-= CleanFilenames         :: Completed =-"
 }
 
 function SortImages {
+  Write-Host "-= SortImages             :: Started   =-"
   $filesMine = Get-ChildItem -Name
   foreach ( $file in $filesMine ) {
     $file | Where-Object { $_ -match '(?<=_by_)(.*)(?=-)' } | foreach-object {
@@ -64,16 +78,30 @@ function SortImages {
         New-Item -type Directory -Force -Path $newPath
       }
       $fileName = "*" + $matches[0] + "*" 
-      move-item $fileName $newPath
+      Move-Item $fileName $newPath
     }
   }
-  write-host "SortImages :: Completed"
+  Write-Host "-= SortImages             :: Completed =-"
 }
 
+Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+Write-Host "-=      Processing Downloads Folder    =-"
+Write-Host "-=      Starting:                      =-"
+Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+Write-Host ""
+Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 MoveCompressedFiles
 CleanFilenames
 SortImages
 MoveExecFiles
+MoveInstallers
+Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+Write-Host ""
+Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+Write-Host "-=      Processing Downloads Folder    =-"
+Write-Host "-=      Completed:                     =-"
+Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+Write-Host ""
 
 Pop-Location
 # end
