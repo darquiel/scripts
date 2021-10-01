@@ -18,6 +18,7 @@ Param(
   [string]$targetCmPrsdDirRoot = "/Users/mja/OneDrive/Downloads/CmPrsd/", 
   [string]$targetImageDirRoot = "/Users/mja/OneDrive/Downloads/DA.Art/Sorted/",
   [string]$targetInstallersDirRoot = "/Users/mja/OneDrive/Downloads/Installer/",
+  [string]$targetAudioDirRoot = "/Users/mja/OneDrive/Downloads/Audio/",
   [string]$targetExecDirRoot = "/Users/mja/OneDrive/Downloads/MRA/You-Exec/" 
 )
 
@@ -46,6 +47,13 @@ function MoveInstallers {
   Write-Host "-= MoveInstallers         :: Completed =-"
 }
 
+function MoveAudioFiles {
+  Write-Host "-= MoveAudioFiles         :: Started   =-"
+  $audioDir = $targetAudioDirRoot
+  
+  Move-Item *.mp3 $audioDir
+  Write-Host "-= MoveAudioFiles         :: Completed =-"
+}
 function MoveExecFiles {
   Write-Host "-= MoveExecFiles          :: Started   =-"
   $pptxDir = $targetExecDirRoot + "PPTX/"
@@ -95,6 +103,7 @@ CleanFilenames
 SortImages
 MoveExecFiles
 MoveInstallers
+MoveAudioFiles
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
