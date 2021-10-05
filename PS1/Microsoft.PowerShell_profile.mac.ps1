@@ -83,4 +83,4 @@ function start-visualstudiocode {
 }
 
 set-location "~/scripts/PS1"
-# clear
+clear
