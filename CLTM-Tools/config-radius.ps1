@@ -21,10 +21,10 @@ Param(
 Clear-Host
 
 
-function StageConfig {
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " StageConfig :: Started "
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-"
+function StageAutorizeCnfg {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " StageAutorizeCnfg :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   
   # check for exisitng file and remove it / then unzip the file
   $sshConnection = $trgtAccount + '@' + $trgtHost
@@ -40,10 +40,11 @@ function StageConfig {
   
   cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
 
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " StageConfig :: Completed"
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " StageAutorizeCnfg :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-StageConfig
+StageAutorizeCnfg
+
 # end
