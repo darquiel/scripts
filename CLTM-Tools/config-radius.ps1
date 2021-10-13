@@ -35,11 +35,16 @@ function StageConfig {
   
   
   Write-Host $testString
+  
+  if (Test-Path -Path stage.txt -PathType Leaf) {
+    rm stage.txt
+  }
+  
   Add-Content -Path stage.txt -Value $testString
-  #$sshCommand =  "printf " + $testString + ">> stageauthorize"
+  # $sshCommand =  "printf " + $testString + ">> stageauthorize"
   
 
-  #ssh $sshConnection $sshCommand
+  # ssh $sshConnection $sshCommand
 
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " StageConfig :: Completed"
