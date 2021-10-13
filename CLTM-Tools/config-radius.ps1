@@ -29,22 +29,16 @@ function StageConfig {
   # check for exisitng file and remove it / then unzip the file
   $sshConnection = $trgtAccount + '@' + $trgtHost
   ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
-  
-  #build text
-  $testString = $cyRadAccount + "`tCleartext-Password := `"" + $cyRadPasswd + "`"" + "`n`tReply-Message := `"Authorized, %{User-Name}`""
-  
-  
-  Write-Host $testString
-  
+    
   if (Test-Path -Path stage.txt -PathType Leaf) {
     rm stage.txt
   }
   
+  $testString = $cyRadAccount + "`tCleartext-Password := `"" + $cyRadPasswd + "`"" + "`n`tReply-Message := `"Authorized, %{User-Name}`""
+  Write-Host $testString
   Add-Content -Path stage.txt -Value $testString
-  # $sshCommand =  "printf " + $testString + ">> stageauthorize"
   
-
-  # ssh $sshConnection $sshCommand
+  cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
 
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " StageConfig :: Completed"
