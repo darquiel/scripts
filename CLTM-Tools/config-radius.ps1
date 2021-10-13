@@ -31,17 +31,15 @@ function StageConfig {
   ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
   
   #build text
-  $testString = "`"" + $cyRadAccount + "\tCleartext-Password := \`"" + $cyRadPasswd + "\`"" + "\n\tReply-Message := \`"Authorized, %{User-Name}\`"" + "`""
-  write-host $testString
+  $testString = $cyRadAccount + "`tCleartext-Password := `"" + $cyRadPasswd + "`"" + "`n`tReply-Message := `"Authorized, %{User-Name}`""
   
-  $sshCommand = "'echo -e " + $testString + ">> stageauthorize'"
-  write-host $sshCommand
+  
+  Write-Host $testString
+  Add-Content -Path stage.txt -Value $testString
+  #$sshCommand =  "printf " + $testString + ">> stageauthorize"
+  
 
-  ssh $sshConnection $sshCommand
-
-  # check for exisitng file (working directory) and remove it / then untar it
-  #ssh build@khazadum "if [ -d 4.0a ]; then rm -rf 4.0a; fi"
-  #ssh build@khazadum "tar -xvf drop/4.0a.tar"
+  #ssh $sshConnection $sshCommand
 
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " StageConfig :: Completed"
@@ -49,5 +47,4 @@ function StageConfig {
 }
 
 StageConfig
-
 # end
