@@ -19,7 +19,7 @@ Param(
 )
 
 Clear-Host
-
+$sshConnection = $trgtAccount + '@' + $trgtHost
 
 function StageAutorizeCnfg {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
@@ -27,7 +27,6 @@ function StageAutorizeCnfg {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   
   # check for exisitng file and remove it / then unzip the file
-  $sshConnection = $trgtAccount + '@' + $trgtHost
   ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
     
   if (Test-Path -Path stage.txt -PathType Leaf) {
@@ -51,14 +50,15 @@ function RestartFRD {
   Write-Host " RestartFRD :: Started "
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
 
-  
+  ssh $sshConnection 'sudo killall freeradius'
+  ssh $sshConnection 'sudo freeradius'
 
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host "  RestartFRD :: Completed"
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-StageAutorizeCnfg
+#StageAutorizeCnfg
 RestartFRD
 
 # end
