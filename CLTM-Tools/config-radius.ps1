@@ -59,7 +59,7 @@ function StageClientCnfg {
     rm stage2.txt
   }
   
-  $test2String = "client " + $cyRadClientName + " {`n`tIpaddr`t= " + $cyRadClientIPAddr + "`n`tsecret`t= " + $cyRadClientSecret + "`n}"
+  $test2String = "client " + $cyRadClientName + " {`n`tipaddr`t= " + $cyRadClientIPAddr + "`n`tsecret`t= " + $cyRadClientSecret + "`n}"
   Write-Host $test2String
   Add-Content -Path stage2.txt -Value $test2String
   
