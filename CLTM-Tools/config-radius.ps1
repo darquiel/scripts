@@ -21,14 +21,12 @@ Param(
 Clear-Host
 $sshConnection = $trgtAccount + '@' + $trgtHost
 
-function StageAutorizeCnfg {
+function StageAuthorizeCnfg {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " StageAutorizeCnfg :: Started "
+  Write-Host " StageAuthorizeCnfg :: Started "
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   
-  # check for exisitng file and remove it / then unzip the file
-  ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
-    
+   
   if (Test-Path -Path stage.txt -PathType Leaf) {
     rm stage.txt
   }
@@ -37,11 +35,8 @@ function StageAutorizeCnfg {
   Write-Host $testString
   Add-Content -Path stage.txt -Value $testString
   
-  cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
-  ssh $sshConnection 'cat stageauthorize >> /etc/freeradius/3.0/mods-config/files/authorize'
-
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " StageAutorizeCnfg :: Completed"
+  Write-Host " StageAuthorizeCnfg :: Completed"
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
@@ -58,7 +53,26 @@ function RestartFRD {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-#StageAutorizeCnfg
-RestartFRD
+function TrnsfrAuthorizeCnfg {
+
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " TrnsfrAuthorizeCnfg :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+
+  # check for exisitng file and remove it / then unzip the file
+  ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
+ 
+  cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
+  ssh $sshConnection 'cat stageauthorize >> /etc/freeradius/3.0/mods-config/files/authorize'
+  
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " TrnsfrAuthorizeCnfg :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+
+}
+
+StageAuthorizeCnfg
+#TrnsfrAuthorizeCnfg
+#RestartFRD
 
 # end
