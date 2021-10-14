@@ -15,7 +15,10 @@ Param(
   [string]$trgtHost = "bjorn",
   [string]$trgtAccount = "mja",
   [string]$cyRadAccount = "Home",
-  [string]$cyRadPasswd = "Cylntm-auth"
+  [string]$cyRadPasswd = "Cylntm-auth",
+  [string]$cyRadClientName = "private-network-cylntm",
+  [string]$cyRadClientSecret = "cylntm-123",
+  [string]$cyRadClientIPAddr = "172.16.52.0/24"
 )
 
 Clear-Host
@@ -40,20 +43,47 @@ function StageAuthorizeCnfg {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-function TrnsfrAuthorizeCnfg {
+# Stage NetworkSettings (Client)
+#Client private-network-1 {
+#  Ipaddr    = 172.16.52.0/24
+#  secret    = cylntm-123
+#}
 
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " TrnsfrAuthorizeCnfg :: Started "
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+function StageClientCnfg {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " StageClientCnfg :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  
+   
+  if (Test-Path -Path stage2.txt -PathType Leaf) {
+    rm stage2.txt
+  }
+  
+  $test2String = "client " + $cyRadClientName + " {`n`tIpaddr`t= " + $cyRadClientIPAddr + "`n`tsecret`t= " + $cyRadClientSecret + "`n}"
+  Write-Host $test2String
+  Add-Content -Path stage2.txt -Value $test2String
+  
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " StageClientCnfg :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+}
+
+function TrnsfrStageCnfg {
+
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " TrnsfrStageCnfg :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
   # check for exisitng file and remove it / then unzip the file
   ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
- 
+  ssh $sshConnection "if [ -f stageclient ]; then rm stageclient; fi"
+
   cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
-  
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " TrnsfrAuthorizeCnfg :: Completed"
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  cat stage2.txt | ssh $sshConnection 'cat - > stageclient'
+
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " TrnsfrStageCnfg :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
 }
 
@@ -73,9 +103,8 @@ function RestartFRD {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-
 StageAuthorizeCnfg
-#TrnsfrAuthorizeCnfg
+StageClientCnfg
+TrnsfrStageCnfg
 #RestartFRD
-
 # end
