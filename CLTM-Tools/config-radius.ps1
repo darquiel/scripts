@@ -39,12 +39,26 @@ function StageAutorizeCnfg {
   Add-Content -Path stage.txt -Value $testString
   
   cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
+  ssh $sshConnection 'cat stageauthorize >> /etc/freeradius/3.0/mods-config/files/authorize'
 
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " StageAutorizeCnfg :: Completed"
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
+function RestartFRD {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " RestartFRD :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+
+  
+
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host "  RestartFRD :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+}
+
 StageAutorizeCnfg
+RestartFRD
 
 # end
