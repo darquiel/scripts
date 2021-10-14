@@ -40,19 +40,6 @@ function StageAuthorizeCnfg {
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 }
 
-function RestartFRD {
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host " RestartFRD :: Started "
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
-
-  ssh $sshConnection 'sudo killall freeradius'
-  ssh $sshConnection 'sudo freeradius'
-
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-  Write-Host "  RestartFRD :: Completed"
-  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-}
-
 function TrnsfrAuthorizeCnfg {
 
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
@@ -63,13 +50,29 @@ function TrnsfrAuthorizeCnfg {
   ssh $sshConnection "if [ -f stageauthorize ]; then rm stageauthorize; fi"
  
   cat stage.txt | ssh $sshConnection 'cat - > stageauthorize'
-  ssh $sshConnection 'cat stageauthorize >> /etc/freeradius/3.0/mods-config/files/authorize'
   
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
   Write-Host " TrnsfrAuthorizeCnfg :: Completed"
   Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
 }
+
+function RestartFRD {
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host " RestartFRD :: Started "
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-"
+
+  #apply configuration
+  ssh $sshConnection 'cat stageauthorize >> /etc/freeradius/3.0/mods-config/files/authorize'
+
+  ssh $sshConnection 'sudo killall freeradius'
+  ssh $sshConnection 'sudo freeradius'
+
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+  Write-Host "  RestartFRD :: Completed"
+  Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+}
+
 
 StageAuthorizeCnfg
 #TrnsfrAuthorizeCnfg
