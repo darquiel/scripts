@@ -31,10 +31,12 @@ function MoveCompressedFiles {
   $rDir = $targetCmPrsdDirRoot + "R/"
   $tgzDir = $targetCmPrsdDirRoot + "tar.gz/"
   $isoDir = $targetCmPrsdDirRoot + "ISO/"
+  $bundleDir = $targetCmPrsdDirRoot + "B/"
   Move-Item *.zip $zDir 
   Move-Item *.rar $rDir
   Move-Item *.tar.gz $tgzDir
   Move-Item *.iso $isoDir
+  Move-Item *.bundle $bundleDir
   Write-Host "-= MoveCompressedFiles    :: Completed =-"
 }
 
