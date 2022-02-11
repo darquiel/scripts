@@ -15,11 +15,11 @@
 
 Param(
   [string]$sourceDir = "/Users/mja/Downloads/",
-  [string]$targetCmPrsdDirRoot = "/Users/mja/OneDrive/Downloads/CmPrsd/", 
-  [string]$targetImageDirRoot = "/Users/mja/OneDrive/Downloads/DA.Art/Sorted/",
-  [string]$targetInstallersDirRoot = "/Users/mja/OneDrive/Downloads/Installer/",
-  [string]$targetAudioDirRoot = "/Users/mja/OneDrive/Downloads/Audio/",
-  [string]$targetExecDirRoot = "/Users/mja/OneDrive/Downloads/MRA/You-Exec/" 
+  [string]$targetCmPrsdDirRoot = "/Volumes/MjA.Personal/Xfer/CmPrsd/", 
+  [string]$targetImageDirRoot = "/Volumes/MjA.Personal/Xfer/DA.Art/Sorted/",
+  [string]$targetInstallersDirRoot = "/Volumes/MjA.Personal/Xfer/Installer/",
+  [string]$targetAudioDirRoot = "/Volumes/MjA.Personal/Xfer/Audio/",
+  [string]$targetExecDirRoot = "/Volumes/MjA.Personal/Xfer/MRA/You-Exec/" 
 )
 
 Clear-Host
