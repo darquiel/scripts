@@ -55,11 +55,6 @@ function Get-ChildItemColor {
         $Host.UI.RawUI.ForegroundColor = 'Green'
         Write-output $_
         $Host.UI.RawUI.ForegroundColor = $fore
-      #}
-      #} elseif ($text_files.IsMatch($_.Name)) {
-      #  $Host.UI.RawUI.ForegroundColor = 'Cyan'
-      #  echo $_
-      #  $Host.UI.RawUI.ForegroundColor = $fore
       } else {
         Write-output $_
       }
@@ -87,5 +82,5 @@ function start-visualstudiocode {
   # end
 }
 
-set-location "~/Documents/scripts/PS1"
-# clear
+set-location "~/scripts/PS1"
+clear

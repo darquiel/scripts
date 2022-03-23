@@ -14,10 +14,10 @@
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #>
 
 Param(
-  [string]$sourceDir = "/Users/usd42142/Downloads/",
-  [string]$targetCmPrsdDirRoot = "/Users/usd42142/OneDrive/Downloads/CmPrsd/", 
-  [string]$targetImageDirRoot = "/Users/usd42142/OneDrive/Downloads/DA.Art/Sorted/",
-  [string]$targetExecDirRoot = "/Users/usd42142/OneDrive/Downloads/MRA/You-Exec/" 
+  [string]$sourceDir = "/Users/mja/Downloads/",
+  [string]$targetCmPrsdDirRoot = "/Users/mja/OneDrive/Downloads/CmPrsd/", 
+  [string]$targetImageDirRoot = "/Users/mja/OneDrive/Downloads/DA.Art/Sorted/",
+  [string]$targetExecDirRoot = "/Users/mja/OneDrive/Downloads/MRA/You-Exec/" 
 )
 
 Clear-Host
@@ -26,16 +26,23 @@ Push-Location $sourceDir
 function MoveCompressedFiles {
   $zDir = $targetCmPrsdDirRoot + "Z/"
   $rDir = $targetCmPrsdDirRoot + "R/"
+  $tgzDir = $targetCmPrsdDirRoot + "tar.gz/"
+  $isoDir = $targetCmPrsdDirRoot + "ISO/"
   move-item *.zip $zDir 
   move-item *.rar $rDir
+  move-item *.tar.gz $tgzDir
+  move-item *.iso $isoDir
   Write-Host "MoveCompressedFiles :: Completed"
 }
 
 function MoveExecFiles {
   $pptxDir = $targetExecDirRoot + "PPTX/"
   $xlsDir = $targetExecDirRoot + "XLS/"
+  $keyDir = $targetExecDirRoot + "KEY/"
   move-item *.pptx $pptxDir
   move-item *.xls $xlsDir
+  move-item *.xlsx $xlsDir
+  move-item *.key $keyDir
   Write-Host "MoveExecFiles :: Completed"
 }
 
