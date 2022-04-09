@@ -16,8 +16,7 @@
 Param(
   [string]$sourceSkelDir = "/Users/mja/serve/rover/skel/",
   [string]$sourceXDir = "/Users/mja/serve/rover/x/",
-  [string]$targetLogDir = "/Users/mja/serve/",
-  [string]$targetExecDirRoot = "/Volumes/MjA.Personal/Xfer/MRA/You-Exec/" 
+  [string]$targetLogDir = "/Users/mja/serve/"
 )
 
 Clear-Host
