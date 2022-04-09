@@ -21,15 +21,15 @@ Param(
 function Rebase_Working_Copy {
   Write-Host "-= Rebase Working Copy  :: Started   =-"
   push-location $sourceRootDir
-  pwd
   #Write-Output "PR#`tDescription`tFrom branch" >> ~/serve/rover.csv
   #gh pr list -L 100 -S "is:pr merged:2022-03-26..2022-04-08 base:master" >> ~/serve/rover.csv
-  ls
+  gci
   Pop-Location
   Write-Host "-= Rebase Working Copy  :: Completed =-"
 }
 
 Clear-Host
+
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host "-=     Cutting the RC    =-"
 Write-Host "-=     Starting:         =-"
