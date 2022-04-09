@@ -24,6 +24,14 @@ function Rebase_Working_Copy {
   #Write-Output "PR#`tDescription`tFrom branch" >> ~/serve/rover.csv
   #gh pr list -L 100 -S "is:pr merged:2022-03-26..2022-04-08 base:master" >> ~/serve/rover.csv
   gci
+  
+  rm -rf skel
+  rm -rf x
+
+  git clone https://azriel.visualstudio.com/Learning/_git/skel
+  git clone https://azriel.visualstudio.com/Learning/_git/x
+
+
   Pop-Location
   Write-Host "-= Rebase Working Copy  :: Completed =-"
 }
