@@ -14,16 +14,17 @@
 
 Param(
   [string]$sourceRootDir = "/Users/mja/serve/test/",
-  [string]$XDir = $sourceRotoDir + "/x",
-  [string]$SkelDir = "/skel"
+  [string]$XDir = $sourceRootDir + "x",
+  [string]$SkelDir = $sourceRootDir + "skel"
 )
 
 function Rebase_Working_Copy {
   Write-Host "-= Rebase Working Copy  :: Started   =-"
   push-location $sourceRootDir
-  
+
   rm -rf $SkelDir
   git clone https://azriel.visualstudio.com/Learning/_git/skel
+
   rm -rf $XDir
   git clone https://azriel.visualstudio.com/Learning/_git/x
 
