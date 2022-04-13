@@ -16,13 +16,15 @@ Param(
   [string]$sourceRootDir = "/Users/mja/serve/test/",
   [string]$XDir = $sourceRootDir + "x",
   [string]$SkelDir = $sourceRootDir + "skel",
+  [string]$brnchCmmtSKEL = "481c4679",
+  [string]$brnchCmmtX = "cbb51312",
   [string]$verNum = "3.27.0",
   [string]$rcNum = "rc1",
   [string]$rcName = $verNum + "-" + $rcNum
 )
 
 function Rebase_Working_Copy {
-  Write-Host "-= Rebase Working Copy  :: Started   =-"
+  Write-Host "-= Rebase Working Copy    :: Started   =-"
   push-location $sourceRootDir
 
   rm -rf $SkelDir
@@ -32,18 +34,20 @@ function Rebase_Working_Copy {
   git clone https://azriel.visualstudio.com/Learning/_git/x
 
   Pop-Location
-  Write-Host "-= Rebase Working Copy  :: Completed =-"
+  Write-Host "-= Rebase Working Copy    :: Completed =-"
 }
 
 function Gen_rvr_branches {
   Write-Host "-= Generate RVR Branchges :: Started   =-"
-  Write-Host "-= Release Name: " + rcName
+  Write-Host "-= Release Name: $rcName            =-"
   push-location $SkelDir
-  #git branch release/rover/
-
-
-
+  git branch release/rover/$rcName $brnchCmmtSKEL
   Pop-Location
+  
+  push-location $XDir
+  git branch release/rover/$rcName $brnchCmmtX
+  Pop-Location
+  
   Write-Host "-= Generate RVR Branchges :: Completed =-"
 }
 
