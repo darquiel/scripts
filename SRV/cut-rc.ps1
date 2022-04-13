@@ -15,7 +15,10 @@
 Param(
   [string]$sourceRootDir = "/Users/mja/serve/test/",
   [string]$XDir = $sourceRootDir + "x",
-  [string]$SkelDir = $sourceRootDir + "skel"
+  [string]$SkelDir = $sourceRootDir + "skel",
+  [string]$verNum = "3.27.0",
+  [string]$rcNum = "rc1",
+  [string]$rcName = $verNum + "-" + $rcNum
 )
 
 function Rebase_Working_Copy {
@@ -32,6 +35,18 @@ function Rebase_Working_Copy {
   Write-Host "-= Rebase Working Copy  :: Completed =-"
 }
 
+function Gen_rvr_branches {
+  Write-Host "-= Generate RVR Branchges :: Started   =-"
+  Write-Host "-= Release Name: " + rcName
+  push-location $SkelDir
+  #git branch release/rover/
+
+
+
+  Pop-Location
+  Write-Host "-= Generate RVR Branchges :: Completed =-"
+}
+
 Clear-Host
 
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
@@ -42,6 +57,7 @@ Write-Host ""
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
 Rebase_Working_Copy
+Gen_rvr_branches
 #Generate_X_PR_Log
 
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
