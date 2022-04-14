@@ -1,15 +1,16 @@
 <# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-.DESCRIPTION
-  Generate RC
-.INPUTS
-  Script takes an input of src root
-  Script takes an input of rc to cut
-  option flag {for RVR, FLT, ALL}
-.OUTPUTS
-  Script automates actions for generating an RC
-.NOTES
-  Version:        -- see the GIT repos for version history
-  Repos:          https://azriel.visualstudio.com/_git/scripts/SRV
+.HEADER
+  .DESCRIPTION
+    Generate RC
+  .INPUTS
+    Script takes an input of src root
+    Script takes an input of rc to cut
+    option flag {for RVR, FLT, ALL}
+  .OUTPUTS
+   Script automates actions for generating an RC
+  .NOTES
+   Version:        -- see the GIT repos for version history
+   Repos:          https://azriel.visualstudio.com/_git/scripts/SRV
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #>
 
 Param(
