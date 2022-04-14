@@ -41,12 +41,28 @@ function Rebase_Working_Copy {
 function Gen_rvr_branches {
   Write-Host "-= Generate RVR Branchges :: Started   =-"
   Write-Host "-= Release Name: $rcName            =-"
+  
+  Rebase_Working_Copy
+  
   push-location $SkelDir
   git branch release/rover/$rcName $brnchCmmtSKEL
   Pop-Location
   
   push-location $XDir
   git branch release/rover/$rcName $brnchCmmtX
+  Pop-Location
+  
+  Write-Host "-= Generate RVR Branchges :: Completed =-"
+}
+
+function Gen_fw_branches {
+  Write-Host "-= Generate RVR Branchges :: Started   =-"
+  Write-Host "-= Release Name: $rcName            =-"
+  
+  Rebase_Working_Copy
+
+  push-location $SkelDir
+  git branch release/rover/$rcName $brnchCmmtSKEL
   Pop-Location
   
   Write-Host "-= Generate RVR Branchges :: Completed =-"
@@ -61,9 +77,8 @@ Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
-Rebase_Working_Copy
 Gen_rvr_branches
-#Generate_X_PR_Log
+
 
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
