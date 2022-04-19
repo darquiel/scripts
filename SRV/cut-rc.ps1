@@ -55,9 +55,12 @@ function Gen_rvr_branches {
   git tag rover/$rcName && git push origin rover/$rcName
   Pop-Location
   
-  #push-location $XDir
-  #git branch release/rover/$rcName $brnchCmmtX
-  #Pop-Location
+  push-location $XDir
+  git branch release/rover/$rcName $brnchCmmtX
+  git switch release/rover/$rcName
+  git push origin release/rover/$rcName
+  git tag rover/$rcName && git push origin rover/$rcName
+  Pop-Location
   
   Write-Host "-= Generate RVR Branchges :: Completed =-"
 }
