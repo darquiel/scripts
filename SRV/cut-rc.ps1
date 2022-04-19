@@ -77,10 +77,12 @@ function Gen_fw_branches {
   $flwVersion = "`"version`": `"$rcName`""
   push-location src/cloud/frontend/pilot/client
   (get-content -path package.json -raw) -replace '"version": "3.27.0"',$flwVersion > packagea.json
-  
-  #  "version": "3.27.0",
-
+  rm package.json
+  rename-item packagea.json package.json
   pop-location
+  git add src/cloud/frontend/pilot/client/package.json && git commit -m “Release $rcName” && git push origin release/fleetware/$rcName
+  git tag fleetware/$rcName && git push origin fleetware/$rcName
+
   Pop-Location
   
   Write-Host "-= Generate FLW Branchges :: Completed =-"
