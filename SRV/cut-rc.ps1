@@ -46,6 +46,10 @@ function Gen_rvr_branches {
   
   push-location $SkelDir
   git branch release/rover/$rcName $brnchCmmtSKEL
+  git switch release/rover/$rcName
+  (get-content -path release-manifest.yml -raw) -replace 'rover: "3.12.0"','rover: "$rcName"' > release-manifesta.yml
+  rm release-manifest.yml
+  rename-item release-manifesta.yml release-manifest.yml
   Pop-Location
   
   push-location $XDir
