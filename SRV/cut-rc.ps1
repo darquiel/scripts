@@ -19,7 +19,7 @@ Param(
   [string]$SkelDir = $sourceRootDir + "skel",
   [string]$brnchCmmtSKEL = "481c4679",
   [string]$brnchCmmtX = "cbb51312",
-  [string]$verNum = "3.27.0",
+  [string]$verNum = "3.28.0",
   [string]$rcNum = "rc1",
   [string]$rcName = $verNum + "-" + $rcNum
 )
@@ -47,14 +47,16 @@ function Gen_rvr_branches {
   push-location $SkelDir
   git branch release/rover/$rcName $brnchCmmtSKEL
   git switch release/rover/$rcName
+  get-content -path release-manifest.yml -raw
   (get-content -path release-manifest.yml -raw) -replace 'rover: "3.12.0"','rover: "$rcName"' > release-manifesta.yml
   rm release-manifest.yml
   rename-item release-manifesta.yml release-manifest.yml
+  get-content -path release-manifest.yml -raw
   Pop-Location
   
-  push-location $XDir
-  git branch release/rover/$rcName $brnchCmmtX
-  Pop-Location
+  #push-location $XDir
+  #git branch release/rover/$rcName $brnchCmmtX
+  #Pop-Location
   
   Write-Host "-= Generate RVR Branchges :: Completed =-"
 }
