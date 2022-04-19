@@ -19,7 +19,7 @@ Param(
   [string]$SkelDir = $sourceRootDir + "skel",
   [string]$brnchCmmtSKEL = "7e82a6a6",
   [string]$brnchCmmtX = "cbb51312",
-  [string]$verNum = "3.28.0",
+  [string]$verNum = "3.25.0",
   [string]$rcNum = "rc1",
   [string]$rcName = $verNum + "-" + $rcNum
 )
