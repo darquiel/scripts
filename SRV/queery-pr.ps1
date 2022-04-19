@@ -26,7 +26,7 @@ function Generate_Skel_PR_Log {
   Write-Host "-= Generate SKEL PR Log   :: Started   =-"
   push-location $sourceSkelDir
   Write-Output "PR#`tDescription`tFrom branch" >> ~/serve/rover.csv
-  gh pr list -L 100 -S "is:pr merged:2022-03-26..2022-04-08 base:master" >> ~/serve/rover.csv
+  gh pr list -L 100 -S "is:pr merged:2022-04-09..2022-04-22 base:master" >> ~/serve/rover.csv
   Pop-Location
   Write-Host "-= Generate SKEL PR Log   :: Completed =-"
 }
@@ -34,7 +34,7 @@ function Generate_Skel_PR_Log {
 function Generate_X_PR_Log {
   Write-Host "-= Generate X PR Log      :: Started   =-"
   push-location $sourceXDir
-  gh pr list -L 100 -S "is:pr merged:2022-03-26..2022-04-08 base:master" 
+  gh pr list -L 100 -S "is:pr merged:2022-04-09..2022-04-22 base:master" 
   Pop-Location
   Write-Host "-= Generate X PR Log      :: Completed =-"
 }
