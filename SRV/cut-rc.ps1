@@ -17,7 +17,7 @@ Param(
   [string]$sourceRootDir = "/Users/mja/serve/test/",
   [string]$XDir = $sourceRootDir + "x",
   [string]$SkelDir = $sourceRootDir + "skel",
-  [string]$brnchCmmtSKEL = "481c4679",
+  [string]$brnchCmmtSKEL = "7e82a6a6",
   [string]$brnchCmmtX = "cbb51312",
   [string]$verNum = "3.28.0",
   [string]$rcNum = "rc1",
