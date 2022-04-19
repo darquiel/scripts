@@ -66,16 +66,24 @@ function Gen_rvr_branches {
 }
 
 function Gen_fw_branches {
-  Write-Host "-= Generate RVR Branchges :: Started   =-"
+  Write-Host "-= Generate FLW Branchges :: Started   =-"
   Write-Host "-= Release Name: $rcName            =-"
   
   Rebase_Working_Copy
 
   push-location $SkelDir
-  git branch release/rover/$rcName $brnchCmmtSKEL
+  git branch release/fleetware/$rcName $brnchCmmtSKEL
+    
+  $flwVersion = "`"version`": `"$rcName`""
+  push-location src/cloud/frontend/pilot/client
+  (get-content -path package.json -raw) -replace '"version": "3.27.0"',$flwVersion > packagea.json
+  
+  #  "version": "3.27.0",
+
+  pop-location
   Pop-Location
   
-  Write-Host "-= Generate RVR Branchges :: Completed =-"
+  Write-Host "-= Generate FLW Branchges :: Completed =-"
 }
 
 Clear-Host
@@ -87,8 +95,8 @@ Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
-Gen_rvr_branches
-
+#Gen_rvr_branches
+Gen_fw_branches 
 
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
