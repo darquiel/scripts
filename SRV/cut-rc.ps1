@@ -73,7 +73,8 @@ function Gen_fw_branches {
 
   push-location $SkelDir
   git branch release/fleetware/$rcName $brnchCmmtSKEL
-    
+  git switch release/fleetware/$rcName
+
   $flwVersion = "`"version`": `"$rcName`""
   push-location src/cloud/frontend/pilot/client
   (get-content -path package.json -raw) -replace '"version": "3.27.0"',$flwVersion > packagea.json
