@@ -98,7 +98,7 @@ Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
-#Gen_rvr_branches
+Gen_rvr_branches
 Gen_fw_branches 
 
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
