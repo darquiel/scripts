@@ -15,13 +15,17 @@
 
 Param(
   [string]$sourceRootDir = "/Users/mja/serve/test/",
-  [string]$XDir = $sourceRootDir + "x",
   [string]$SkelDir = $sourceRootDir + "skel",
-  [string]$brnchCmmtSKEL = "7e82a6a6",
-  [string]$brnchCmmtX = "cbb51312",
-  [string]$verNum = "3.25.0",
-  [string]$rcNum = "rc1",
-  [string]$rcName = $verNum + "-" + $rcNum
+  <# [string]$XDir = $sourceRootDir + "x", #>
+  [string]$brnchCmmtSKEL = "fc2e01fe",
+  <# [string]$brnchCmmtX = "cbb51312", #>
+  [string]$verMajor = "3",
+  [string]$verMinor = "32",
+  [string]$verPatch = "0",
+  [string]$verBld = "1",
+  [string]$rcName = $verMajor + "." + $verMinor,
+  [string]$verNum = $verMajor + "." + $verMinor + "." + $verPatch + "." + $verBld,
+  [string]$rcTag = $verNum + "-qa"
 )
 
 function Rebase_Working_Copy {
@@ -31,14 +35,16 @@ function Rebase_Working_Copy {
   rm -rf $SkelDir
   git clone https://azriel.visualstudio.com/Learning/_git/skel
 
+  <#
   rm -rf $XDir
   git clone https://azriel.visualstudio.com/Learning/_git/x
+  #>
 
   Pop-Location
   Write-Host "-= Rebase Working Copy    :: Completed =-"
 }
 
-function Gen_rvr_branches {
+function Gen_robot_branches {
   Write-Host "-= Generate RVR Branchges :: Started   =-"
   Write-Host "-= Release Name: $rcName            =-"
   
@@ -46,25 +52,29 @@ function Gen_rvr_branches {
   
   push-location $SkelDir
   git branch release/rover/$rcName $brnchCmmtSKEL
-  git switch release/rover/$rcName
-  $rvrVersion = "rover: `"$rcName`""
-  (get-content -path release-manifest.yml -raw) -replace 'rover: "3.12.0"',$rvrVersion > release-manifesta.yml
+  git checkout release/rover/$rcName
+  $rvrVersion = "rover: `"$verNum`""
+  (get-content -path release-manifest.yml -raw) -replace 'rover: "3.0.0.0"',$verNum > release-manifesta.yml
   rm release-manifest.yml
   rename-item release-manifesta.yml release-manifest.yml
-  git add release-manifest.yml && git commit -m “Release $rcName” && git push origin release/rover/$rcName
-  git tag rover/$rcName && git push origin rover/$rcName
+  git add release-manifest.yml && git commit -m “Release $rcTag” && git push origin release/rover/$rcName
+  git tag rover/$rcTag && git push origin rover/$rcTag
+  git push --set-upstream origin release/rover/$rcName
   Pop-Location
   
+  <#
   push-location $XDir
   git branch release/rover/$rcName $brnchCmmtX
   git switch release/rover/$rcName
   git push origin release/rover/$rcName
   git tag rover/$rcName && git push origin rover/$rcName
   Pop-Location
+  #>
   
   Write-Host "-= Generate RVR Branchges :: Completed =-"
 }
 
+<#
 function Gen_fw_branches {
   Write-Host "-= Generate FLW Branchges :: Started   =-"
   Write-Host "-= Release Name: $rcName            =-"
@@ -88,6 +98,7 @@ function Gen_fw_branches {
   
   Write-Host "-= Generate FLW Branchges :: Completed =-"
 }
+#>
 
 Clear-Host
 
@@ -98,8 +109,8 @@ Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
-Gen_rvr_branches
-Gen_fw_branches 
+Gen_robot_branches
+<# Gen_fw_branches #>
 
 Write-Host "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 Write-Host ""
