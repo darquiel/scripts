@@ -33,7 +33,7 @@ function Rebase_Working_Copy {
   Write-Host "-= Rebase Working Copy    :: Started   =-"
   push-location $sourceRootDir
 
-  rm -rf $SkelDigit pull
+  rm -rf $SkelDir
 
   git clone https://github.com/serve-robotics/skel.git
 
