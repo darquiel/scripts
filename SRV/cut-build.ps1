@@ -16,10 +16,10 @@
 Param(
   [string]$sourceRootDir = "/Users/mja/serve/MjA.SRC/",
   [string]$SkelDir = $sourceRootDir + "skel",
-  <# [string]$XDir = $sourceRootDir + "x", #>
+  [string]$XDir = $sourceRootDir + "x",
   [string]$brnchCmmtSKEL = "45047424",
-  <# [string]$brnchCmmtX = "cbb51312", #>
-  [string]$product = "rbt",
+  [string]$brnchCmmtX = "bd70fa4c",
+  [string]$productbase = "mja/robot",
   [string]$verMajor = "99",
   [string]$verMinor = "0",
   [string]$verPatch = "0",
@@ -34,12 +34,12 @@ function Rebase_Working_Copy {
   push-location $sourceRootDir
 
   rm -rf $SkelDir
+
   git clone https://github.com/serve-robotics/skel.git
 
-  <#
   rm -rf $XDir
-  git clone https://azriel.visualstudio.com/Learning/_git/x
-  #>
+
+  git clone https://github.com/serve-robotics/x.git
 
   Pop-Location
   Write-Host "-= Rebase Working Copy    :: Completed =-"
@@ -52,25 +52,24 @@ function Gen_robot_branches {
   Rebase_Working_Copy
   
   push-location $SkelDir
-  git branch mja/$product/$rcName $brnchCmmtSKEL
-  git checkout mja/$product/$rcName
+  git branch $productbase/$rcName $brnchCmmtSKEL
+  git checkout $productbase/$rcName
   $rvrVersion = "rover: `"$verNum`""
   (get-content -path release-manifest.yml -raw) -replace 'rover: "3.12.0"',$rvrVersion > release-manifesta.yml
   rm release-manifest.yml
   rename-item release-manifesta.yml release-manifest.yml
-  git add release-manifest.yml && git commit -m “Release $rcTag” && git push origin mja/$product/$rcName
-  git tag mja/$product/$rcTag && git push origin mja/$product/$rcTag
-  git push --set-upstream origin mja/$product/$rcName
+  git add release-manifest.yml && git commit -m “Release $rcTag” && git push origin $productbase/$rcName
+  git tag $productbase/$rcTag && git push origin $productbase/$rcTag
+  git push --set-upstream origin $productbase/$rcName
   Pop-Location
   
-  <#
   push-location $XDir
-  git branch release/rover/$rcName $brnchCmmtX
-  git switch release/rover/$rcName
-  git push origin release/rover/$rcName
-  git tag rover/$rcName && git push origin rover/$rcName
+  git branch $productbase/$rcName $brnchCmmtX
+  git checkout $productbase/$rcName
+  git push origin $productbase/$rcName
+  git tag $productbase/$rcTag && git push origin $productbase/$rcTag
+  git push --set-upstream origin $productbase/$rcName
   Pop-Location
-  #>
   
   Write-Host "-= Generate Robot Branchges :: Completed =-"
 }
