@@ -14,13 +14,14 @@
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- #>
 
 Param(
-  [string]$sourceRootDir = "/Users/mja/serve/test/",
+  [string]$sourceRootDir = "/Users/mja/serve/MjA.SRC/",
   [string]$SkelDir = $sourceRootDir + "skel",
   <# [string]$XDir = $sourceRootDir + "x", #>
-  [string]$brnchCmmtSKEL = "fc2e01fe",
+  [string]$brnchCmmtSKEL = "45047424",
   <# [string]$brnchCmmtX = "cbb51312", #>
-  [string]$verMajor = "3",
-  [string]$verMinor = "32",
+  [string]$product = "rbt",
+  [string]$verMajor = "99",
+  [string]$verMinor = "0",
   [string]$verPatch = "0",
   [string]$verBld = "1",
   [string]$rcName = $verMajor + "." + $verMinor,
@@ -33,7 +34,7 @@ function Rebase_Working_Copy {
   push-location $sourceRootDir
 
   rm -rf $SkelDir
-  git clone https://azriel.visualstudio.com/Learning/_git/skel
+  git clone https://github.com/serve-robotics/skel.git
 
   <#
   rm -rf $XDir
@@ -45,21 +46,21 @@ function Rebase_Working_Copy {
 }
 
 function Gen_robot_branches {
-  Write-Host "-= Generate RVR Branchges :: Started   =-"
+  Write-Host "-= Generate Robot Branchges :: Started   =-"
   Write-Host "-= Release Name: $rcName            =-"
   
   Rebase_Working_Copy
   
   push-location $SkelDir
-  git branch release/rover/$rcName $brnchCmmtSKEL
-  git checkout release/rover/$rcName
+  git branch mja/$product/$rcName $brnchCmmtSKEL
+  git checkout mja/$product/$rcName
   $rvrVersion = "rover: `"$verNum`""
-  (get-content -path release-manifest.yml -raw) -replace 'rover: "3.0.0.0"',$verNum > release-manifesta.yml
+  (get-content -path release-manifest.yml -raw) -replace 'rover: "3.12.0"',$rvrVersion > release-manifesta.yml
   rm release-manifest.yml
   rename-item release-manifesta.yml release-manifest.yml
-  git add release-manifest.yml && git commit -m “Release $rcTag” && git push origin release/rover/$rcName
-  git tag rover/$rcTag && git push origin rover/$rcTag
-  git push --set-upstream origin release/rover/$rcName
+  git add release-manifest.yml && git commit -m “Release $rcTag” && git push origin mja/$product/$rcName
+  git tag mja/$product/$rcTag && git push origin mja/$product/$rcTag
+  git push --set-upstream origin mja/$product/$rcName
   Pop-Location
   
   <#
@@ -71,7 +72,7 @@ function Gen_robot_branches {
   Pop-Location
   #>
   
-  Write-Host "-= Generate RVR Branchges :: Completed =-"
+  Write-Host "-= Generate Robot Branchges :: Completed =-"
 }
 
 <#
