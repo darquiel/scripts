@@ -49,9 +49,11 @@ function Gen_robot_branches {
   Write-Host "-= Generate Robot Branchges :: Started   =-"
   Write-Host "-= Release Name: $rcName            =-"
   
-  Rebase_Working_Copy
+  #Rebase_Working_Copy
   
   push-location $SkelDir
+  git checkout master
+  git pull
   git branch $productbase/$rcName $brnchCmmtSKEL
   git checkout $productbase/$rcName
   $rvrVersion = "rover: `"$verNum`""
@@ -64,6 +66,8 @@ function Gen_robot_branches {
   Pop-Location
   
   push-location $XDir
+  git checkout master
+  git pull
   git branch $productbase/$rcName $brnchCmmtX
   git checkout $productbase/$rcName
   git push origin $productbase/$rcName
