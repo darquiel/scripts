@@ -2,6 +2,8 @@
 Set-Alias -name ls -value get-childitemcolor -option AllScope -Force
 Set-Alias -name vscode -value start-visualstudiocode -option AllScope -Force
 
+Add-Content -Path $PROFILE.CurrentUserAllHosts -Value '$(/usr/local/bin/brew shellenv) | Invoke-Expression'
+
 function Get-ChildItemColor {
 <#
 .Synopsis
